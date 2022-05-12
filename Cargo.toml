@@ -1,0 +1,41 @@
+[package]
+name = "wgpu-sandbox"
+version = "0.1.0"
+edition = "2021"
+resolver = "2"
+
+[dependencies]
+wgpu = { version = "0.12.0", features = [
+    "spirv",
+    "glsl",
+    "angle",
+    "webgl",
+    "trace",
+    "replay",
+] }
+winit = "0.26"
+wgpu-subscriber = "0.1"
+futures-lite = "1.12"
+bytemuck = { version = "1.7", features = ["derive"] }
+imgui = { version = "0.8", optional = true }
+imgui-wgpu = { version = "0.19", optional = true }
+imgui-winit-support = { version = "0.8", features = ["winit-26"], optional = true }
+log = "0.4.16"
+
+[features]
+spirv = ["wgpu/spirv"]
+glsl = ["wgpu/glsl"]
+angle = ["wgpu/angle"]
+webgl = ["wgpu/webgl"]
+trace = ["wgpu/trace"]
+replay = ["wgpu/replay"]
+imgui = ["dep:imgui", "dep:imgui-wgpu", "dep:imgui-winit-support"]
+wgpu-all = ["spirv", "glsl", "angle", "webgl", "trace", "replay"]
+all = ["wgpu-all", "imgui"]
+
+[[example]]
+name = "hello_world"
+
+[[example]]
+name = "imgui"
+required-features = ["imgui"]
